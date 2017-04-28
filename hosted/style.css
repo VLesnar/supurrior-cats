@@ -1,0 +1,317 @@
+/* Included fonts */
+/* Included font - Equip Light by Hoftype on fontspring.com */
+@font-face {
+    font-family: 'equiplight';
+    src: url('fonts/EquipLig-webfont.eot');
+    src: url('fonts/EquipLig-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/EquipLig-webfont.woff2') format('woff2'),
+         url('fonts/EquipLig-webfont.woff') format('woff'),
+         url('fonts/EquipLig-webfont.ttf') format('truetype'),
+         url('fonts/EquipLig-webfont.svg#equiplight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Included font - Always Forever by Brittney Murphy on 1001freefonts.com */
+@font-face {
+    font-family: 'alwaysforever';
+    src: url('fonts/always_forever-webfont.eot');
+    src: url('fonts/always_forever-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/always_forever-webfont.woff2') format('woff2'),
+         url('fonts/always_forever-webfont.woff') format('woff'),
+         url('fonts/always_forever-webfont.ttf') format('truetype'),
+         url('fonts/always_forever-webfont.svg#always__foreverregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: rgb(50, 50, 50);
+}
+
+#logo {
+    height: 40px;
+    width: 40;
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+    transition: box-shadow 0.4s ease-in-out;
+    box-shadow: none;
+    border-radius: 3px;
+}
+
+#logo:hover {
+    transition: box-shadow 0.4s ease-in-out;
+    box-shadow: 0px 0px 3px 3px rgb(1, 230, 245);
+} 
+
+nav {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(28, 28, 28);
+}
+
+nav:nth-child(1) {
+    padding-left: 25px;
+}
+
+.navlink {
+    padding: 5px;
+    padding-top: 12px;
+    padding-left: 20px;
+    color: white;
+    font-size: 1.3em;
+    font-family: equiplight;
+    float: left;
+}
+
+.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    transition: color 0.4s ease;
+}
+
+.navlink a:hover {
+    transition: color 0.8s ease;
+    color: rgb(1, 230, 245);
+}
+
+.catForm {
+    height: 70px;
+    width: 100%;
+    margin-top:0px;
+    padding-top:10px;
+    background-color: rgb(1, 230, 245);
+}
+
+.catForm label, .stat {
+    font-family: "equiplight", sans-serif;
+    display: inline-block;
+    width: auto;
+    margin-left: 10px;
+    padding-right: 10px;
+    font-size: 1.0em;
+    float: left;
+    color: rgb(28, 28, 28);
+}
+
+.catForm input[type=text] {
+    float:left;
+}
+
+.makeCatSubmit {
+    margin-left: 20px;
+    font-family: "equiplight", sans-serif;
+    transition: background-color 0.4s ease;
+    display: inline;
+    width: 90px;
+    background-color: rgb(28, 28, 28);
+    border-radius: 2px;
+    color: rgb(229, 229, 229);
+    text-decoration: none;
+}
+
+.makeCatSubmit:link, .makeCatSubmit:visited, .makeCatSubmit:hover, .makeCatSubmit:active {
+    transition: 0.4s ease;
+    background-color: rgb(229, 229, 229);
+    color: rgb(28, 28, 28);
+}
+
+.mainForm {
+    height: 200px;
+    width: 350px;
+    margin: 0 auto;
+    padding-top: 150px;
+    font-size: 1.2em;
+    color: rgb(229, 229, 229);
+}
+
+.mainForm h1 {
+    text-align: center;
+    font-size: 3.6em;
+    font-family: alwaysforever, sans-serif;
+    margin-bottom: 25px;
+}
+
+.mainForm h3 {
+    text-align: center;
+}
+
+.mainForm label {
+    display: inline-block;
+    width: 150px;
+    margin-top: 5px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 1.2em;
+    font-family: equiplight, sans-serif;
+}
+
+.formSubmit {
+    transition: 0.4s ease;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 14px;
+    font-size: 1.2em;
+    font-family: equiplight, sans-serif;
+    width: 100px;
+    background-color: rgb(1, 230, 245);
+    border-radius: 2px;
+    border-color: rgb(1, 166, 178);
+    padding: 3px 0px;
+    color: rgb(28, 28, 28);
+    text-decoration: none;
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+  transition: 0.4s ease;  
+  color: white;
+}
+
+.formSubmit:hover {
+    transition: 0.4s ease;
+    background-color: rgb(28, 28, 28);
+    border-color: rgb(0, 0, 0);
+}
+
+#user, #pass, #pass2 {
+    text-align: center;
+    font-size: 1.1em;
+    width: 180px;
+    border-radius: 6px;
+}
+
+#user:focus, #pass:focus, #pass2:focus {
+    outline: none;
+    box-shadow: 0px 0px 2px 3px rgb(1, 230, 245);
+}
+
+#catMessage {
+    display:none;
+    top: 250px;
+    width: 250px;
+    height: 650px;
+    position: absolute;
+    z-index: 200;
+    right: 0px;
+    overflow: hidden;
+}
+
+#catMessage h3 {
+    width: 200px;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    z-index: 500;
+}
+
+#thought {
+    height: 200px;
+    width: 250px;
+    position: relative;
+    z-index: 300;
+}
+
+#errorMessage {
+    text-align: center;
+    position: relative;
+    left: 20px;
+    top: 7px;
+    font-size: 1.5em;
+    font-family: alwaysforever, sans-serif;
+    color: rgb(28, 28, 28);
+    font-style: italic;
+}
+
+#cat {
+    z-index: 225;
+    margin-top: -20px;
+    margin-left: 75px;
+    height: 450px;
+    width: 300px;
+}
+
+#cats {
+    width: 40%;
+    min-width: 400px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.cat {
+    transition: 0.2s ease-out;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border: 2px solid;
+    border-color: rgb(1, 166, 178);
+    border-radius: 4px;
+    background-color: rgb(1, 230, 245);
+    padding: 10px;
+    min-height:60px;
+    overflow: hidden;
+}
+
+.cat:hover {
+    transition: 0.2s ease-out;
+    border-color: rgb(229, 229, 229);
+}
+
+img.domoFace {
+    margin-left: 25px;
+    margin-right: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 4px;
+    margin-top:10px;
+    float:left;
+}
+
+h3.emptyCat {
+    width: 400px;
+    font-size: 1.5em;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 18px;
+}
+
+h3.catName {
+    font-family: "alwaysforever", sans-serif;
+    float:left;
+    text-align: right;
+    width: 200px;
+    font-weight: bold;
+    padding-left: 65px;
+    font-size: 3.0em;
+}
+
+.stat {
+    font-family: "equiplight", sans-serif;
+    text-align: right;
+    font-weight: bold;
+    padding-right: 40px;
+    font-size: 1.0em;
+}
+
+.cat:first-child {
+    margin-top: 10px;
+}
+
+.cat:last-child {
+    margin-bottom:10px;
+}
+
+.catPic {
+  float: left;
+  height: 177px;
+  width: 200px;
+}
