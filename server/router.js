@@ -13,6 +13,7 @@ const router = (app) => {
   app.get('/maker', mid.requiresLogin, controllers.Cat.makerPage);
   app.post('/maker', mid.requiresLogin, controllers.Cat.make);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+  app.get('/*', controllers.Account.loginPage);
 };
 
 module.exports = router;

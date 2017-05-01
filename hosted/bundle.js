@@ -7,6 +7,7 @@ var CatFormClass = void 0;
 var CatListClass = void 0;
 var adoptRenderer = void 0;
 var AdoptListClass = void 0;
+var StatWindow = void 0;
 
 var handleCat = function handleCat(e) {
   e.preventDefault();
@@ -25,6 +26,7 @@ var handleCat = function handleCat(e) {
   return false;
 };
 
+// Sends the stat changes through AJAX using a form
 var handleStat = function handleStat(e) {
   e.preventDefault();
 
@@ -42,12 +44,7 @@ var handleStat = function handleStat(e) {
   return false;
 };
 
-var initialAdoptState = function initialAdoptState() {
-  return {
-    cats: []
-  };
-};
-
+// Renders the cats available for adoption onscreen; TODO - Get this to display properly
 var renderAdoptList = function renderAdoptList() {
   return React.createElement(
     "div",
@@ -105,6 +102,7 @@ var renderCat = function renderCat() {
   );
 };
 
+// Adds the stat change form to the profile page to be changed
 var renderStat = function renderStat(cat) {
   return React.createElement(
     "form",
@@ -152,15 +150,8 @@ var renderStat = function renderStat(cat) {
   );
 };
 
+// Creates a react class for changing to the stat form
 var changeStat = function changeStat(cat) {
-  var StatWindow = React.createClass({
-    displayName: "StatWindow",
-
-    render: function render() {
-      return renderStat(cat);
-    }
-  });
-
   var name = cat.name;
   name = "#" + name;
 
@@ -233,6 +224,14 @@ var renderCatList = function renderCatList() {
 };
 
 var setup = function setup(csrf) {
+  StatWindow = React.createClass({
+    displayName: "StatWindow",
+
+    render: function render() {
+      return renderStat(cat);
+    }
+  });
+
   CatFormClass = React.createClass({
     displayName: "CatFormClass",
 
@@ -257,18 +256,23 @@ var setup = function setup(csrf) {
     render: renderCatList
   });
 
+  // Class made to show cats that can be adopted - TODO move from this because /adopt is trying
+  // to read above code causing error
   AdoptListClass = React.createClass({
     displayName: "AdoptListClass",
 
     render: renderAdoptList,
-    getInitialState: initialAdoptState
+    getInitialState: function getInitialState() {
+      return { data: [] };
+    }
   });
 
   catForm = ReactDOM.render(React.createElement(CatFormClass, { csrf: csrf }), document.querySelector("#makeCat"));
 
   catRenderer = ReactDOM.render(React.createElement(CatListClass, null), document.querySelector("#cats"));
 
-  adoptRenderer = ReactDOM.render(React.createElement(AdoptListClass, null), document.getElementById("adoptCats"));
+  // Render those cats to the screen!
+  adoptRenderer = ReactDOM.render(React.createElement(AdoptListClass, null), document.querySelector("#adoptCats"));
 };
 
 var getToken = function getToken() {

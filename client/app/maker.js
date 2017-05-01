@@ -5,6 +5,7 @@ let CatFormClass;
 let CatListClass;
 let adoptRenderer;
 let AdoptListClass;
+let StatWindow;
 
 
 const handleCat = (e) => {
@@ -42,13 +43,6 @@ const handleStat = (e) => {
   });
   
   return false;
-};
-
-// Create an initial state; TODO - Add basic cats for testing
-const initialAdoptState = () => {
-  return {
-    cats: [],
-  };
 };
 
 // Renders the cats available for adoption onscreen; TODO - Get this to display properly
@@ -109,13 +103,8 @@ const renderStat = (cat) => {
   );
 };
 
-// Creates a react class for changing to the stat form; TODO - Try adding into code where other
-// classes are created
-const changeStat = (cat) => {
-  const StatWindow = React.createClass({
-    render: () => renderStat(cat)
-  });
-  
+// Creates a react class for changing to the stat form
+const changeStat = (cat) => {  
   let name = cat.name;
   name =`#${name}`;
   
@@ -155,6 +144,10 @@ const renderCatList = function() {
 };
 
 const setup = function(csrf) {
+  StatWindow = React.createClass({
+    render: () => renderStat(cat)
+  });
+  
   CatFormClass = React.createClass({
     handleSubmit: handleCat,
     render: renderCat,
@@ -175,10 +168,13 @@ const setup = function(csrf) {
     render: renderCatList,
   });
   
-  // Class made to show cats that can be adopted
+  // Class made to show cats that can be adopted - TODO move from this because /adopt is trying
+  // to read above code causing error
   AdoptListClass = React.createClass({
     render: renderAdoptList,
-    getInitialState: initialAdoptState,
+    getInitialState: function () {
+      return {data: []};
+    },
   });
   
   catForm = ReactDOM.render(
@@ -191,7 +187,7 @@ const setup = function(csrf) {
   
   // Render those cats to the screen!
   adoptRenderer = ReactDOM.render(
-    <AdoptListClass />, document.getElementById("adoptCats")
+    <AdoptListClass />, document.querySelector("#adoptCats")
   );
 };
 
