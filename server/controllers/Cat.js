@@ -32,27 +32,28 @@ const updateCat = (req, res) => {
   console.dir(req.body.agl);
   console.dir(req.body.int);
   console.dir(req.body.str);
-  
+
   const catPromise = Cat.CatModel.findOne({ name: req.body.name });
-  
-  catPromise.then((cat) => {
-    console.dir(cat);
+
+  catPromise.then((ct) => {
+    console.dir(ct);
+    const cat = ct;
     cat.adventurousness = req.body.adv;
     cat.agility = req.body.agl;
     cat.intelligence = req.body.int;
     cat.stretch = req.body.str;
-    
-    const savePromise = cat.save();
-    
-    savePromise.then(() => {
-      res.json({cat: cat});
-    });
 
+    const savePromise = cat.save();
+
+    savePromise.then(() => {
+      res.json({ cat });
+    });
   });
-  //Cat.CatModel.update(
+  // Cat.CatModel.update(
   //  { name: req.body.name },
-  //  { $set: { adventurousness: req.body.adv, agility: req.body.agl, intelligence: req.body.int, stretch: req.body.str } }
-  //);
+  //  { $set: { adventurousness: req.body.adv, agility: req.body.agl,
+  //  intelligence: req.body.int, stretch: req.body.str } }
+  // );
 };
 
 const makeCat = (req, res) => {
