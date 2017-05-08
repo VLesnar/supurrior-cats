@@ -25,23 +25,34 @@ const makerPage = (req, res) => {
 };
 
 // Updates the cat model based on the form sent in by the user
-const updateCat = (req) => {
-  Cat.update(
-    { name: req.body.name },
-    { $set: { adventurousness: req.body.adv } }
-  );
-  Cat.update(
-    { name: req.body.name },
-    { $set: { agility: req.body.agl } }
-  );
-  Cat.update(
-    { name: req.body.name },
-    { $set: { intelligence: req.body.int } }
-  );
-  Cat.update(
-    { name: req.body.name },
-    { $set: { stretch: req.body.str } }
-  );
+const updateCat = (req, res) => {
+  console.dir(req.body);
+  console.dir(req.body.name);
+  console.dir(req.body.adv);
+  console.dir(req.body.agl);
+  console.dir(req.body.int);
+  console.dir(req.body.str);
+  
+  const catPromise = Cat.CatModel.findOne({ name: req.body.name });
+  
+  catPromise.then((cat) => {
+    console.dir(cat);
+    cat.adventurousness = req.body.adv;
+    cat.agility = req.body.agl;
+    cat.intelligence = req.body.int;
+    cat.stretch = req.body.str;
+    
+    const savePromise = cat.save();
+    
+    savePromise.then(() => {
+      res.json({cat: cat});
+    });
+
+  });
+  //Cat.CatModel.update(
+  //  { name: req.body.name },
+  //  { $set: { adventurousness: req.body.adv, agility: req.body.agl, intelligence: req.body.int, stretch: req.body.str } }
+  //);
 };
 
 const makeCat = (req, res) => {

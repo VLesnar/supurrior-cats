@@ -103,7 +103,8 @@ var renderCat = function renderCat() {
 };
 
 // Adds the stat change form to the profile page to be changed
-var renderStat = function renderStat(cat) {
+function renderStat() {
+  console.dir(this.props);
   return React.createElement(
     "form",
     { id: "statForm",
@@ -115,13 +116,7 @@ var renderStat = function renderStat(cat) {
       method: "POST",
       className: "statForm"
     },
-    React.createElement(
-      "h3",
-      { className: "catName" },
-      " Name: ",
-      cat.name,
-      " "
-    ),
+    React.createElement("input", { id: "name", type: "text", name: "name", className: "catName", placeholder: this.props.catName }),
     React.createElement(
       "label",
       { htmlFor: "adv" },
@@ -146,6 +141,7 @@ var renderStat = function renderStat(cat) {
       "Stretch: "
     ),
     React.createElement("input", { id: "str", type: "text", name: "str", placeholder: "0" }),
+    React.createElement("input", { type: "hidden", name: "_csrf", value: this.csrf }),
     React.createElement("input", { className: "updateCatSubmit", type: "submit", value: "Update Cat" })
   );
 };
@@ -153,9 +149,10 @@ var renderStat = function renderStat(cat) {
 // Creates a react class for changing to the stat form
 var changeStat = function changeStat(cat) {
   var name = cat.name;
-  name = "#" + name;
+  name = "" + name;
+  var value = "#" + name;
 
-  statForm = ReactDOM.render(React.createElement(StatWindow, null), document.querySelector(name));
+  statForm = ReactDOM.render(React.createElement(StatWindow, { catName: name }), document.querySelector(value));
 };
 
 var renderCatList = function renderCatList() {
@@ -227,9 +224,8 @@ var setup = function setup(csrf) {
   StatWindow = React.createClass({
     displayName: "StatWindow",
 
-    render: function render() {
-      return renderStat(cat);
-    }
+    render: renderStat,
+    csrf: csrf
   });
 
   CatFormClass = React.createClass({
@@ -267,12 +263,22 @@ var setup = function setup(csrf) {
     }
   });
 
-  catForm = ReactDOM.render(React.createElement(CatFormClass, { csrf: csrf }), document.querySelector("#makeCat"));
+  var cf = document.querySelector("#makeCat");
+  var cat = document.querySelector("#cats");
+  var ac = document.querySelector("#adopCats");
 
-  catRenderer = ReactDOM.render(React.createElement(CatListClass, null), document.querySelector("#cats"));
+  if (cf) {
+    catForm = ReactDOM.render(React.createElement(CatFormClass, { csrf: csrf }), cf);
+  }
 
-  // Render those cats to the screen!
-  adoptRenderer = ReactDOM.render(React.createElement(AdoptListClass, null), document.querySelector("#adoptCats"));
+  if (cat) {
+    catRenderer = ReactDOM.render(React.createElement(CatListClass, null), cat);
+  }
+
+  if (ac) {
+    // Render those cats to the screen!
+    adoptRenderer = ReactDOM.render(React.createElement(AdoptListClass, null), ac);
+  }
 };
 
 var getToken = function getToken() {

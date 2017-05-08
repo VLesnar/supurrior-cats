@@ -17,7 +17,7 @@ const CatSchema = new mongoose.Schema({
     trim: true,
     set: setName,
     unique: true,
-    match: /^[A-Za-z0-9_\-.]{5,20}$/, // Makes sure the name is between 5-20 characters
+    match: /^[A-Za-z0-9_\-.]{3,20}$/, // Makes sure the name is between 5-20 characters
   },
   adventurousness: {
     type: Number,

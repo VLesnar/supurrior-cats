@@ -80,7 +80,8 @@ const renderCat = function() {
 };
 
 // Adds the stat change form to the profile page to be changed
-const renderStat = (cat) => {
+function renderStat () {
+  console.dir(this.props);
   return (
     <form id="statForm"
       onSubmit={() => handleStat}
@@ -89,7 +90,7 @@ const renderStat = (cat) => {
       method="POST"
       className="statForm"
       >
-      <h3 className="catName"> Name: {cat.name} </h3>
+      <input id="name" type="text"  name="name" className="catName" placeholder={this.props.catName} />
       <label htmlFor="adv">Adventurousness: </label>
       <input id="adv" type="text" name="adv" placeholder="0" />
       <label htmlFor="agl">Agility: </label>
@@ -98,6 +99,7 @@ const renderStat = (cat) => {
       <input id="int" type="text" name="int" placeholder="0" />
       <label htmlFor="str">Stretch: </label>
       <input id="str" type="text" name="str" placeholder="0" />
+      <input type="hidden" name="_csrf" value={this.csrf} />
       <input className="updateCatSubmit" type="submit" value="Update Cat" />
     </form>
   );
@@ -106,11 +108,12 @@ const renderStat = (cat) => {
 // Creates a react class for changing to the stat form
 const changeStat = (cat) => {  
   let name = cat.name;
-  name =`#${name}`;
+  name =`${name}`;
+  let value = `#${name}`;
   
   statForm = ReactDOM.render(
-    <StatWindow />,
-    document.querySelector(name)
+    <StatWindow catName={name}/>,
+    document.querySelector(value)
   )
 };
 
@@ -145,7 +148,8 @@ const renderCatList = function() {
 
 const setup = function(csrf) {
   StatWindow = React.createClass({
-    render: () => renderStat(cat)
+    render: renderStat,
+    csrf: csrf,
   });
   
   CatFormClass = React.createClass({
@@ -177,18 +181,28 @@ const setup = function(csrf) {
     },
   });
   
-  catForm = ReactDOM.render(
-    <CatFormClass csrf={csrf} />, document.querySelector("#makeCat")
-  );
+  let cf = document.querySelector("#makeCat");
+  let cat = document.querySelector("#cats");
+  let ac = document.querySelector("#adopCats");
   
-  catRenderer = ReactDOM.render(
-    <CatListClass />, document.querySelector("#cats")
-  );
+  if(cf) {
+    catForm = ReactDOM.render(
+      <CatFormClass csrf={csrf} />, cf
+    );
+  }
   
-  // Render those cats to the screen!
-  adoptRenderer = ReactDOM.render(
-    <AdoptListClass />, document.querySelector("#adoptCats")
-  );
+  if(cat) {
+    catRenderer = ReactDOM.render(
+      <CatListClass />, cat
+    );
+  }
+  
+  if(ac) {
+    // Render those cats to the screen!
+    adoptRenderer = ReactDOM.render(
+      <AdoptListClass />, ac
+    );
+  }
 };
 
 const getToken = () => {
