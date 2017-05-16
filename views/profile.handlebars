@@ -12,13 +12,15 @@
 </head>
 <body>
   <nav><a href="/login"><img id="logo" src="/assets/img/cateye.png" alt="eye logo"/></a>
-    <div class="navlink"><a href="/logout">Log out</a></div>
-    <div class="navlink"><a href="/adopt">Adopt</a></div>
-    <div class="navlink"><a href="/maker">Profile</a></div>
+    <div class="navlink"><a id="profileButton" href="/profile">Profile</a></div>
+    <div class="navlink"><a id="passButton" href="/changePassword">Change Password</a></div>
+    <div class="navlink"><a id="buyButton" href="/buyExperience">Buy Experience</a></div>
+    <div class="navlink"><a id="adoptButton" href="/adopt">Adopt</a></div>
+    <div class="navlink"><a id="logout" href="/logout">Log Out</a></div>
   </nav>
-  <section id="makeCat">
+  <section id="welcome">
   </section>
-  <section id="cats">
+  <section id="content">
   </section>
   <div id="catMessage"><img id="thought" src="/assets/img/thought.png" alt="thought box"/>
     <h3><span id="errorMessage"></span></h3><img id="cat" src="assets/img/cat.png" alt="cat"/>

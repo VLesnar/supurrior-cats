@@ -1,3 +1,8 @@
+// Used to get a random value for the cat in the adoption center
+const randomValue = () => {
+  return Math.floor((Math.random() * 4) + 1);
+};
+
 const handleError = (message) => {
   $("#errorMessage").text(message);
   $("#catMessage").animate({width:'toggle'}, 350);

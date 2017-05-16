@@ -83,6 +83,15 @@ nav:nth-child(1) {
     color: rgb(1, 230, 245);
 }
 
+#welcome {
+  position: relative;
+  top: -20px;
+  width: 100%;
+  background-color: rgb(1, 230, 245);
+  font-family: "equiplight", sans-serif;
+  text-align: center;
+}
+
 .catForm {
     height: 70px;
     width: 100%;
@@ -106,8 +115,7 @@ nav:nth-child(1) {
     float:left;
 }
 
-.makeCatSubmit {
-    margin-left: 20px;
+#makeCat {
     font-family: "equiplight", sans-serif;
     transition: background-color 0.4s ease;
     display: inline;
@@ -124,13 +132,17 @@ nav:nth-child(1) {
     color: rgb(28, 28, 28);
 }
 
-.mainForm {
+.mainForm, #changePasswordForm, #buyExpForm {
     height: 200px;
-    width: 350px;
+    width: 450px;
     margin: 0 auto;
     padding-top: 150px;
     font-size: 1.2em;
     color: rgb(229, 229, 229);
+}
+
+#buyExpForm {
+  width: 250px;
 }
 
 .mainForm h1 {
@@ -144,7 +156,7 @@ nav:nth-child(1) {
     text-align: center;
 }
 
-.mainForm label {
+.mainForm label, #changePasswordForm label, #buyExpForm label {
     display: inline-block;
     width: 150px;
     margin-top: 5px;
@@ -152,6 +164,18 @@ nav:nth-child(1) {
     text-align: right;
     font-size: 1.2em;
     font-family: equiplight, sans-serif;
+}
+
+#changePasswordForm label {
+  width: 250px;
+  font-size: 1.2em;
+}
+
+#buyExpForm label {
+  padding-left: 5px;
+  text-align: left;
+  width: 200px;
+  font-size: 1.2em;
 }
 
 .formSubmit {
@@ -162,16 +186,34 @@ nav:nth-child(1) {
     margin-top: 14px;
     font-size: 1.2em;
     font-family: equiplight, sans-serif;
-    width: 100px;
+    width: auto;
     background-color: rgb(1, 230, 245);
     border-radius: 2px;
     border-color: rgb(1, 166, 178);
-    padding: 3px 0px;
+    padding: 3px 5px;
     color: rgb(28, 28, 28);
     text-decoration: none;
 }
 
-.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+button {
+    transition: 0.4s ease;
+    display: block;
+    float: right;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 14px;
+    font-size: 1.2em;
+    font-family: equiplight, sans-serif;
+    width: auto;
+    background-color: rgb(28, 28, 28);
+    border-radius: 2px;
+    border-color: rgb(0, 0, 0);;
+    padding: 3px 5px;
+    color: rgb(1, 230, 245);
+    text-decoration: none;
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active, button:hover, button:link, button:visited, button:active {
   transition: 0.4s ease;  
   color: white;
 }
@@ -182,16 +224,28 @@ nav:nth-child(1) {
     border-color: rgb(0, 0, 0);
 }
 
-#user, #pass, #pass2 {
+#user, #pass, #pass2, #oldPass, #name {
     text-align: center;
     font-size: 1.1em;
     width: 180px;
     border-radius: 6px;
 }
 
-#user:focus, #pass:focus, #pass2:focus {
+#name {
+  float: left;
+  position: relative;
+  top: 15px;
+  width: 250px;
+}
+
+#user:focus, #pass:focus, #pass2:focus, #oldPass:focus {
     outline: none;
     box-shadow: 0px 0px 2px 3px rgb(1, 230, 245);
+}
+
+#name:focus {
+    outline: none;
+    box-shadow: 0px 0px 2px 3px rgb(28, 28, 28);
 }
 
 #catMessage {
@@ -248,7 +302,7 @@ nav:nth-child(1) {
 
 .cat {
     transition: 0.2s ease-out;
-    width: 95%;
+    width: 400px;
     margin: 0 auto;
     margin-top: 2px;
     margin-bottom: 2px;
@@ -282,6 +336,16 @@ h3.emptyCat {
     margin: 0 auto;
     text-align: center;
     margin-top: 18px;
+    font-family: "equiplight", sans-serif;
+    border: 2px solid;
+    border-color: rgb(1, 166, 178);
+    border-radius: 4px;
+    background-color: rgb(1, 230, 245);
+  
+}
+
+h3.emptyCat a {
+  color: rgb(28, 28, 28);
 }
 
 h3.catName {
@@ -289,17 +353,49 @@ h3.catName {
     float:left;
     text-align: right;
     width: 200px;
+    position: relative;
+    top: -50px;
+    left: -25px;
     font-weight: bold;
-    padding-left: 65px;
     font-size: 3.0em;
 }
 
-.stat {
+.cat>.statMain {
+    position: relative;
+    float: left;
     font-family: "equiplight", sans-serif;
     text-align: right;
     font-weight: bold;
-    padding-right: 40px;
     font-size: 1.0em;
+    padding-right: 50px;
+    margin-bottom: 10px;
+}
+
+#int {
+  left: -112px;
+}
+
+.cat>.stat {
+  margin-bottom: none;
+  float: right;
+  top: -10px;
+  padding-right: 25px;
+  position: relative;
+  font-family: "equiplight", sans-serif;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.0em;
+}
+
+.statMainButton {
+  position: relative;
+  top: -50px;
+  font-size: 1.0em;
+  float: right;
+}
+
+.adoptButton {
+  float: right;
 }
 
 .cat:first-child {

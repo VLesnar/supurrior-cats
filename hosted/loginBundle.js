@@ -1,42 +1,48 @@
 "use strict";
 
+// Logs the user in
 var handleLogin = function handleLogin(e) {
   e.preventDefault();
 
   $("#catMessage").animate({ width: 'hide' }, 350);
 
+  // If the text fields are empty
   if ($("#user").val() == '' || $("#pass").val() == '') {
     handleError("Username or password is empty!");
     return false;
   }
 
-  console.log($("input[name=_csrf]").val());
-
+  // Login
   sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
 
   return false;
 };
 
+// Signs up a user
 var handleSignup = function handleSignup(e) {
   e.preventDefault();
 
   $("#catMessage").animate({ width: 'hide' }, 350);
 
+  // If the text fields are empty
   if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
     handleError("All fields are required!");
     return false;
   }
 
+  // If the passwords do not match
   if ($("#pass").val() !== $("#pass2").val()) {
     handleError("Passwords do not match!");
     return false;
   }
 
+  // Signup
   sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
 
   return false;
 };
 
+// Displays the login window
 var renderLogin = function renderLogin() {
   return React.createElement(
     "form",
@@ -68,6 +74,7 @@ var renderLogin = function renderLogin() {
   );
 };
 
+// Displays the signup window
 var renderSignup = function renderSignup() {
   return React.createElement(
     "form",
@@ -106,6 +113,7 @@ var renderSignup = function renderSignup() {
   );
 };
 
+// Creates the login window
 var createLoginWindow = function createLoginWindow(csrf) {
   var LoginWindow = React.createClass({
     displayName: "LoginWindow",
@@ -117,6 +125,7 @@ var createLoginWindow = function createLoginWindow(csrf) {
   ReactDOM.render(React.createElement(LoginWindow, { csrf: csrf }), document.querySelector("#content"));
 };
 
+// Creates the signup window
 var createSignupWindow = function createSignupWindow(csrf) {
   var SignupWindow = React.createClass({
     displayName: "SignupWindow",
@@ -129,7 +138,9 @@ var createSignupWindow = function createSignupWindow(csrf) {
 };
 
 var setup = function setup(csrf) {
+  // Clicking displays the login window
   var loginButton = document.querySelector("#loginButton");
+  // Clicking displays the signup window
   var signupButton = document.querySelector("#signupButton");
 
   signupButton.addEventListener("click", function (e) {
@@ -157,6 +168,11 @@ $(document).ready(function () {
   getToken();
 });
 "use strict";
+
+// Used to get a random value for the cat in the adoption center
+var randomValue = function randomValue() {
+  return Math.floor(Math.random() * 4 + 1);
+};
 
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);

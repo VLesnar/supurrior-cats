@@ -2,60 +2,69 @@ const models = require('../models');
 
 const Cat = models.Cat;
 
-const adoptPage = (req, res) => {
+// Adds a cat to the database
+const addCat = (req, res) => {
+  const catData = {
+    name: req.body.name,
+    adventurousness: req.body.adv,
+    agility: req.body.agl,
+    intelligence: req.body.int,
+    stretch: req.body.str,
+    owner: req.session.account._id,
+  };
+
+  const newCat = new Cat.CatModel(catData);
+
+  const catPromise = newCat.save();
+
+  catPromise.then(() => {
+    res.json({ redirect: '/profile' });
+  });
+
+  catPromise.catch((err) => {
+    console.log(err);
+    if (err.code === 11000) {
+      return res.status(400).json({ error: 'Cat already exists!' });
+    }
+
+    return res.status(400).json({ error: 'An error occurred!' });
+  });
+
+  return catPromise;
+};
+
+const profilePage = (req, res) => {
   Cat.CatModel.findByOwner(req.session.account._id, (err) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred!' });
     }
 
-    return res.render('adopt', { csrfToken: req.csrfToken() });
-  });
-};
-
-const makerPage = (req, res) => {
-  Cat.CatModel.findByOwner(req.session.account._id, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occurred!' });
-    }
-
-    return res.render('app', { csrfToken: req.csrfToken(), cats: docs });
+    return res.render('profile', { csrfToken: req.csrfToken() });
   });
 };
 
 // Updates the cat model based on the form sent in by the user
 const updateCat = (req, res) => {
-  console.dir(req.body);
-  console.dir(req.body.name);
-  console.dir(req.body.adv);
-  console.dir(req.body.agl);
-  console.dir(req.body.int);
-  console.dir(req.body.str);
-
   const catPromise = Cat.CatModel.findOne({ name: req.body.name });
 
   catPromise.then((ct) => {
-    console.dir(ct);
     const cat = ct;
-    cat.adventurousness = req.body.adv;
-    cat.agility = req.body.agl;
-    cat.intelligence = req.body.int;
-    cat.stretch = req.body.str;
+    cat.adventurousness = parseInt(req.body.adventurousness, 10);
+    cat.agility = parseInt(req.body.agility, 10);
+    cat.intelligence = parseInt(req.body.intelligence, 10);
+    cat.stretch = parseInt(req.body.stretch, 10);
 
     const savePromise = cat.save();
 
     savePromise.then(() => {
-      res.json({ cat });
+      res.json({ redirect: '/profile' });
     });
   });
-  // Cat.CatModel.update(
-  //  { name: req.body.name },
-  //  { $set: { adventurousness: req.body.adv, agility: req.body.agl,
-  //  intelligence: req.body.int, stretch: req.body.str } }
-  // );
 };
 
+// Makes a cat based on input from a form
+// NOTE: Is not used in the current form of the application
 const makeCat = (req, res) => {
   if (!req.body.name || !req.body.adv || !req.body.agl || !req.body.int ||
      !req.body.str) {
@@ -76,7 +85,7 @@ const makeCat = (req, res) => {
   const catPromise = newCat.save();
 
   catPromise.then(() => {
-    res.json({ redirect: '/maker' });
+    res.json({ redirect: '/profile' });
   });
 
   catPromise.catch((err) => {
@@ -105,8 +114,9 @@ const getCats = (req, res) => {
   });
 };
 
-module.exports.makerPage = makerPage;
+module.exports.profilePage = profilePage;
 module.exports.getCats = getCats;
 module.exports.make = makeCat;
 module.exports.update = updateCat;
-module.exports.adoptPage = adoptPage;
+module.exports.addCat = addCat;
+module.exports.updateCat = updateCat;

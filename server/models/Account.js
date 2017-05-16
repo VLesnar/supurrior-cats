@@ -14,7 +14,7 @@ const AccountSchema = new mongoose.Schema({
     required: true,
     trim: true,
     unique: true,
-    match: /^[A-Za-z0-9_\-.]{5,20}$/, // Checks that the username is between 5-20 characters
+    match: /^[A-Za-z0-9_\-.]{3,20}$/, // Checks that the username is between 3-20 characters
   },
   salt: {
     type: Buffer,
@@ -22,6 +22,12 @@ const AccountSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    required: true,
+  },
+  // Added to keep track of "purchases" to account
+  exp: {
+    type: Number,
+    min: 0,
     required: true,
   },
   createdData: {
@@ -33,6 +39,7 @@ const AccountSchema = new mongoose.Schema({
 AccountSchema.statics.toAPI = doc => ({
   // _id is built into your mongo document and is guaranteed to be unique
   username: doc.username,
+  exp: doc.exp, // This is added experimentally for use in other functions
   _id: doc._id,
 });
 
@@ -59,8 +66,19 @@ AccountSchema.statics.generateHash = (password, callback) => {
   const salt = crypto.randomBytes(saltLength);
 
   crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) =>
-    callback(salt, hash.toString('hex'))
-  );
+    callback(salt, hash.toString('hex')));
+};
+
+AccountSchema.statics.generateNewHash = (username, password, callback) => {
+  const accPromise = AccountModel.findOne({ username });
+
+  accPromise.then((acc) => {
+    const account = acc;
+    const salt = account.salt;
+
+    crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) =>
+      callback(salt, hash.toString('hex')));
+  });
 };
 
 AccountSchema.statics.authenticate = (username, password, callback) =>

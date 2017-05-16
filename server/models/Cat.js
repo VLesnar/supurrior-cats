@@ -7,7 +7,7 @@ const _ = require('underscore');
 let CatModel = {};
 
 const convertId = mongoose.Types.ObjectId;
-const setName = (name) => _.escape(name).trim();
+const setName = name => _.escape(name).trim();
 
 // Add stats for cats
 const CatSchema = new mongoose.Schema({
@@ -22,21 +22,25 @@ const CatSchema = new mongoose.Schema({
   adventurousness: {
     type: Number,
     min: 0,
+    max: 10,
     required: true,
   },
   agility: {
     type: Number,
     min: 0,
+    max: 10,
     required: true,
   },
   intelligence: {
     type: Number,
     min: 0,
+    max: 10,
     required: true,
   },
   stretch: {
     type: Number,
     min: 0,
+    max: 10,
     required: true,
   },
   owner: {
@@ -50,7 +54,7 @@ const CatSchema = new mongoose.Schema({
   },
 });
 
-CatSchema.statics.toAPI = (doc) => ({
+CatSchema.statics.toAPI = doc => ({
   name: doc.name,
   age: doc.age,
 });

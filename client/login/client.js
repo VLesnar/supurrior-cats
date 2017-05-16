@@ -1,40 +1,46 @@
+// Logs the user in
 const handleLogin = (e) => {
   e.preventDefault();
   
   $("#catMessage").animate({width:'hide'}, 350);
   
+  // If the text fields are empty
   if($("#user").val() == '' || $("#pass").val() == '') {
     handleError("Username or password is empty!");
     return false;
   }
   
-  console.log($("input[name=_csrf]").val());
-  
+  // Login
   sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
   
   return false;
 };
 
+// Signs up a user
 const handleSignup = (e) => {
   e.preventDefault();
   
   $("#catMessage").animate({width:'hide'}, 350);
   
+  // If the text fields are empty
   if($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
     handleError("All fields are required!");
     return false;
   }
   
+  // If the passwords do not match
   if($("#pass").val() !== $("#pass2").val()) {
     handleError("Passwords do not match!");
     return false;
-  }
+  }  
   
+  // Signup
   sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
   
   return false;
 };
 
+// Displays the login window
 const renderLogin = function() {
   return (
     <form id="loginForm" name="loginForm"
@@ -55,6 +61,7 @@ const renderLogin = function() {
   );
 };
 
+// Displays the signup window
 const renderSignup = function() {
   return (
     <form id="signupForm"
@@ -77,6 +84,7 @@ const renderSignup = function() {
   );
 };
 
+// Creates the login window
 const createLoginWindow = function(csrf) {
   const LoginWindow = React.createClass({
     handleSubmit: handleLogin,
@@ -89,6 +97,7 @@ const createLoginWindow = function(csrf) {
   );
 };
 
+// Creates the signup window
 const createSignupWindow = function(csrf) {
   const SignupWindow = React.createClass({
     handleSubmit: handleSignup,
@@ -102,7 +111,9 @@ const createSignupWindow = function(csrf) {
 };
 
 const setup = function(csrf) {
+  // Clicking displays the login window
   const loginButton = document.querySelector("#loginButton");
+  // Clicking displays the signup window
   const signupButton = document.querySelector("#signupButton");
   
   signupButton.addEventListener("click", (e) => {
